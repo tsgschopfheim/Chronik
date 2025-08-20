@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vereinschronik</title>
+  <style>
+    h2, h3 { font-family: Arial, sans-serif; }
+
+    .filters {
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+      margin: 6px 0 12px 0; font-family: Arial, sans-serif;
+    }
+    .filters input[type="text"]{ padding:5px; width:340px; }
+    .filters button{ padding:6px 10px; }
+
+    table#dataTable {
+      border-collapse: collapse; width: 100%;
+      font-family: Arial, sans-serif; font-size: 12px;
+    }
+    table#dataTable th, table#dataTable td {
+      border: 1px solid #ccc; padding: 8px; text-align: left;
+    }
+    table#dataTable thead tr:first-child th {
+      background-color: #dbe5f0 !important;
+      position: sticky; top: 0; z-index: 2;
+    }
+    table#dataTable thead tr.filters-row th {
+      background: #eef4fb;
+      position: sticky; top: 34px; z-index: 1;
+    }
+    table#dataTable thead tr.filters-row input {
+      width: 100%; box-sizing: border-box; padding: 6px; font-size: 12px;
+      border: 1px solid #ccd7e3;
+    }
+
+    table#dataTable tbody tr:nth-child(even) { background-color: #f4f8fc !important; }
+    table#dataTable tbody tr:nth-child(odd)  { background-color: #ffffff !important; }
+    table#dataTable tbody tr:hover          { background-color: #e6f2ff !important; }
+
+    @media (max-width: 768px) {
+      table#dataTable { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+
+<h2>Vereinschronik</h2>
+
+<div class="filters">
+  <input type="text" id="globalSearch" placeholder="Global: Jahr, Ereignis, Namen, Quelle … (UND-Suche, mehrere Begriffe)" oninput="applyFilters()" />
+  <button type="button" onclick="clearAllFilters()">Filter zurücksetzen</button>
+</div>
+
+<table id="dataTable" border="1">
+  <thead>
+    <tr>
+      <th>Jahr</th>
+      <th>Ereignis</th>
+      <th style="min-width: 420px;">Beschreibung</th>
+      <th>Quelle</th>
+      <th style="min-width: 260px;">Namentliche Erwähnungen</th>
+    </tr>
+    <tr class="filters-row">
+      <th><input type="text" class="colFilter" data-col="0" placeholder="Filter Jahr" oninput="applyFilters()" /></th>
+      <th><input type="text" class="colFilter" data-col="1" placeholder="Filter Ereignis" oninput="applyFilters()" /></th>
+      <th><input type="text" class="colFilter" data-col="2" placeholder="Filter Beschreibung" oninput="applyFilters()" /></th>
+      <th><input type="text" class="colFilter" data-col="3" placeholder="Filter Quelle" oninput="applyFilters()" /></th>
+      <th><input type="text" class="colFilter" data-col="4" placeholder="Filter Namen" oninput="applyFilters()" /></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1846</td>
+      <td>Gründung des Turnvereins Schopfheim</td>
+      <td>Am 18. Juni 1846 wird der Turnverein Schopfheim gegründet. Erste Turnstunden leitet Lehrer Karl F. Geiler, der Verein erhält die Erlaubnis zur Nutzung des Turnplatzes an der Bürgerschule. Damit beginnt die organisierte Turnbewegung in Schopfheim.</td>
+      <td>Gemeinderatsbeschluss, Lehrer Karl F. Geiler</td>
+      <td>Karl F. Geiler</td>
+    </tr>
+    <tr>
+      <td>1847</td>
+      <td>Erster Turnplatz im Sengelenwäldchen</td>
+      <td>Die aktiven Turner richten im Sengelenwäldchen den ersten Turnplatz im Wiesental her. Dort entsteht ein Treffpunkt, an dem sich Jung und Alt sportlich betätigen.</td>
+      <td>Vereinsüberlieferung</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1848</td>
+      <td>Revolution und Rückschlag</td>
+      <td>Die Revolution in Baden unterbricht die Vereinsarbeit, viele Turner sind politisch aktiv. Die Turnbewegung kommt vorläufig zum Erliegen.</td>
+      <td>Zeitgeschehen</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1863</td>
+      <td>Wiedergründung</td>
+      <td>Wilhelm Fleiner wird erneut zum Vorsitzenden gewählt. Satzung, Turnordnung und Beiträge werden festgelegt. Mit 103 Mitgliedern erlebt der Verein einen starken Aufschwung.</td>
+      <td>Hauptversammlung in der „Krone“</td>
+      <td>Wilhelm Fleiner</td>
+    </tr>
+    <tr>
+      <td>1869</td>
+      <td>Einweihung der ersten Turnhalle</td>
+      <td>Die erste vereinseigene Turnhalle am Sengelenwäldchen wird eröffnet, was die Trainingsbedingungen entscheidend verbessert.</td>
+      <td>Vereinsaufzeichnungen</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1870–71</td>
+      <td>Deutsch-Französischer Krieg</td>
+      <td>Der Turnbetrieb wird zeitweise eingeschränkt, bleibt jedoch trotz schwieriger Umstände erhalten.</td>
+      <td>Zeitgeschehen</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1882</td>
+      <td>Gründung des Markgräfler Turngaues</td>
+      <td>In Basel wird der „Markgräfler Turngau“ gegründet. Das erste Gauturnfest findet in Schopfheim statt, Bürgermeister Grether begrüßt die Gäste persönlich.</td>
+      <td>Festberichte</td>
+      <td>Bürgermeister Grether</td>
+    </tr>
+    <tr>
+      <td>1887</td>
+      <td>40 Jahre TV Schopfheim, zweite Fahnenweihe</td>
+      <td>Jubiläumsfeier mit Fahnenweihe und einer großen turnerisch-theatralischen Aufführung. Nach den Feierlichkeiten sinkt die Motivation der Mitglieder deutlich.</td>
+      <td>Vereinschronik</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1896</td>
+      <td>50-jähriges Stiftungsfest</td>
+      <td>26 Vereine nehmen am Gauturnfest in Schopfheim teil. Ein Festzug mit 700 Personen und große Feierlichkeiten im Pflugsaal prägen das Jubiläum.</td>
+      <td>Festberichte</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1901</td>
+      <td>Damen- und Zöglingsturnen</td>
+      <td>Erstmals nimmt eine Damenabteilung offiziell am Schauturnen im Sengelenwäldchen teil – ein wichtiger Schritt für die Gleichberechtigung im Verein.</td>
+      <td>Vereinschronik</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1907</td>
+      <td>Neue Turnhalle hinter der Realschule</td>
+      <td>Der Bau einer Turnhalle hinter der Realschule verbessert die Bedingungen sowohl für den Schul- als auch für den Vereinssport erheblich.</td>
+      <td>Vereinsaufzeichnungen</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1914–18</td>
+      <td>Erster Weltkrieg</td>
+      <td>Die Mitgliederzahl erreicht 199. 32 aktive Turner kehren nicht zurück, ihre Namen werden in den Vereinsunterlagen für die Nachwelt festgehalten.</td>
+      <td>Kriegsaufzeichnungen</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1919</td>
+      <td>Wiederaufnahme des Turnbetriebs</td>
+      <td>Frauen, Schwerathleten, Fechter, Hand- und Faustballer sowie Schwimmer erweitern das Angebot. Der Verein gewinnt wieder an Vielfalt.</td>
+      <td>Presseberichte</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1921</td>
+      <td>75-jähriges Jubiläum</td>
+      <td>Großes Fest im Sengelenwäldchen mit 700 Turnern und einem beeindruckenden Festzug durch die Stadt.</td>
+      <td>Vereinsberichte</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1923</td>
+      <td>Notzeiten</td>
+      <td>Die wirtschaftlich schwere Lage verhindert ein geplantes Jubiläumsfest. Stattdessen findet ein Gau-Frauenturnen in der Reithalle statt.</td>
+      <td>Vereinsberichte</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1926</td>
+      <td>Neuer Turn- und Spielplatz</td>
+      <td>Das Gelände an der Fehlmattstraße wird gepachtet und hergerichtet. Mit 510 Mitgliedern wächst der Verein zu einer festen Größe in Schopfheim.</td>
+      <td>Vereinsaufzeichnungen</td>
+      <td>Vorstand Fehrenbach, Dr. Kratzer, Fritz Brüderlin</td>
+    </tr>
+    <tr>
+      <td>1933–40</td>
+      <td>NS-Zeit</td>
+      <td>Gleichschaltung und „Arierparagraph“ prägen den Verein. 1940 findet die letzte Veranstaltung im Pflugsaal statt, bevor das Vereinsleben vollständig erlischt.</td>
+      <td>Zeitgeschehen</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1948</td>
+      <td>Nachkriegszeit</td>
+      <td>Das französische Turnverbot endet. Die Schopfheimer Turner schließen sich zunächst dem Sportverein Schopfheim an, ehe die Eigenständigkeit zurückkehrt.</td>
+      <td>Militärregierung, Vereinsaufzeichnungen</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1950</td>
+      <td>Neubeginn</td>
+      <td>Der Verein wird wieder selbstständig. Eine neue Satzung wird verabschiedet und der Eintrag ins Vereinsregister erfolgt. Neue Angebote wie Kleinkinderturnen und eine Ringerabteilung entstehen.</td>
+      <td>Vereinsaufzeichnungen</td>
+      <td>Ernst Baier (ab 1952 Vorsitzender), Theo Baumann</td>
+    </tr>
+    <tr>
+      <td>1956</td>
+      <td>110-jähriges Jubiläum</td>
+      <td>Großes Jubiläumsfest mit 1200 Turnerinnen und Turnern im Oberfeld. Der Spielmannszug wird feierlich wiedergegründet und sorgt für besondere Stimmung.</td>
+      <td>Vereinsaufzeichnungen</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>1960er</td>
+      <td>Neue Abteilungen</td>
+      <td>Gründung von Faustball, Frauen-, Basketball-, Ski-, Badminton- und Judoabteilungen. Zudem werden Hemdglunkibälle organisiert, die in Schopfheim Kultstatus erlangen.</td>
+      <td>Vereinschronik</td>
+      <td>Rolf Zimmermann, Karl-Frieder Andris, Erich Gnädig, Lothar Lutz, Rudi Itzin, Josef Dill, Joachim Seger, Ino Hodapp, Manfred Karle</td>
+    </tr>
+    <tr>
+      <td>1970</td>
+      <td>Umbenennung in TSG</td>
+      <td>Der Turnverein wird in Turn- und Sportgemeinschaft Schopfheim 1846 e.V. umbenannt. Die Mitgliederzahl erreicht 757.</td>
+      <td>Generalversammlung</td>
+      <td>Ernst Baier</td>
+    </tr>
+    <tr>
+      <td>1971</td>
+      <td>125 Jahre TSG</td>
+      <td>Jubiläumsfeiern in der neuen Friedrich-Ebert-Sporthalle. Der Verein erhält die Walter-Kolb-Medaille. Das Fest zeigt die große Bedeutung der TSG in Schopfheim.</td>
+      <td>Festberichte</td>
+      <td>Bürgermeister Dr. Vetter, R. Itzin, Giuliano Risorgi</td>
+    </tr>
+    <tr>
+      <td>1975</td>
+      <td>Vorsitzendenwechsel</td>
+      <td>Nachfolger von Ernst Baier wird Hans Jenisch. Baier wird Ehrenvorsitzender. Der Schwimmclub wird als Abteilung eingegliedert.</td>
+      <td>Generalversammlung</td>
+      <td>Ernst Baier, Hans Jenisch, Karl Selz</td>
+    </tr>
+    <tr>
+      <td>1980</td>
+      <td>Radsportabteilung</td>
+      <td>Mit großem Engagement wird eine Radsportabteilung gegründet. Schon bald erfreut sie sich regen Zulaufs und nimmt an zahlreichen Veranstaltungen teil.</td>
+      <td>Vereinschronik</td>
+      <td>Heinz Leuger, Georg Reuter, Rolf Leuger</td>
+    </tr>
+    <tr>
+      <td>1981</td>
+      <td>Vorsitzendenwechsel</td>
+      <td>Nach mehreren Jahren übergibt Hans Jenisch das Amt. Hans-Peter Maier übernimmt den Vorsitz.</td>
+      <td>Generalversammlung</td>
+      <td>Hans Jenisch, Hans-Peter Maier</td>
+    </tr>
+    <tr>
+      <td>1983</td>
+      <td>Führungskrise</td>
+      <td>Rücktritte des 1. und 2. Vorsitzenden stürzen den Verein in eine Führungskrise. Die Strukturen geraten ins Wanken, bevor sich eine neue Führungsgruppe bildet.</td>
+      <td>Generalversammlung</td>
+      <td>Manfred Ehrhardt, Hanspeter Maier</td>
+    </tr>
+    <tr>
+      <td>1984</td>
+      <td>Neue Führungsmannschaft</td>
+      <td>Heinz Leuger übernimmt den Vorsitz, unterstützt von Lothar Lutz und Karlheinz Andris. Auch eine Coronar-Gruppe für Herzsport wird gegründet.</td>
+      <td>Generalversammlung</td>
+      <td>Heinz Leuger, Lothar Lutz, Karlheinz Andris, Dr. Thomas Weiß, Ernst Baier</td>
+    </tr>
+    <tr>
+      <td>1985</td>
+      <td>Bau des Vereinsheims</td>
+      <td>Mit großem ehrenamtlichem Einsatz wird das ehemalige Bahnwärterhaus erworben und in Eigenleistung umgebaut. Für diese Leistung erhält der Verein die Sportplakette des Bundespräsidenten.</td>
+      <td>Vereinsaufzeichnungen</td>
+      <td>Giuliano Risorgi, Ernst Baier, Richard von Weizsäcker, Otto Leible</td>
+    </tr>
+    <tr>
+      <td>1986</td>
+      <td>140 Jahre TSG</td>
+      <td>Ein ganzes Jahr lang wird gefeiert: Ausstellung, Sternwanderung, Volksradfahren und die feierliche Eröffnung des Vereinsheims prägen das Jubiläum.</td>
+      <td>Festberichte</td>
+      <td>Erich Gnädig, Karl-Heinz Übelaker, Nicole Grether</td>
+    </tr>
+    <tr>
+      <td>1988</td>
+      <td>Neue Satzung</td>
+      <td>Eine Beitragserhöhung und die Verabschiedung einer neuen Vereinssatzung prägen die Generalversammlung. Zudem wird Nicole Grether Deutsche Meisterin U14.</td>
+      <td>Generalversammlung</td>
+      <td>Nicole Grether, Erich Gnädig</td>
+    </tr>
+    <tr>
+      <td>1990er</td>
+      <td>Gesellschaftlicher Wandel</td>
+      <td>Das Vereinsleben leidet unter rückläufigem ehrenamtlichen Engagement und neuen finanziellen Belastungen, etwa durch Hallengebühren. Familienabende und gesellige Feste sollen den Zusammenhalt bewahren.</td>
+      <td>Generalversammlung</td>
+      <td>Heinz Leuger, Lothar Lutz, Käthe Philipp-Schwarzwälder</td>
+    </tr>
+    <tr>
+      <td>1996</td>
+      <td>150-jähriges Jubiläum</td>
+      <td>Mit vielfältigen Veranstaltungen feiert die TSG ihr 150-jähriges Bestehen in Schopfheim. Festzüge, Sportveranstaltungen und gesellige Abende prägen das Jubiläum.</td>
+      <td>Vereinschronik</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>2020</td>
+      <td>Corona-Pandemie</td>
+      <td>Ab 2. November 2020 musste der Sportbetrieb wegen der Pandemie vollständig eingestellt werden. Diese Zwangspause bedeutete eine enorme Herausforderung für alle Abteilungen.</td>
+      <td>Vorstandskommunikation</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>2020–22</td>
+      <td>Folgen der Pandemie</td>
+      <td>Während und nach der Pandemie sank die Mitgliederzahl auf unter 850. Übungsleiter fehlten, Teilnehmer kamen nur langsam zurück, und der Trainingsbetrieb lief schleppend an. Die Vereinsführung musste neue Wege finden, um die Gemeinschaft zusammenzuhalten.</td>
+      <td>Mitgliederverwaltung / Vorstand</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>2021</td>
+      <td>Renovierung des Vereinsheims</td>
+      <td>Im Mai 2021 begann die Renovierung des Vereinsheims. Neben baulichen Maßnahmen standen auch Fragen der Modernisierung und energetischen Verbesserung im Vordergrund.</td>
+      <td>Bauprotokolle</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>2022</td>
+      <td>Abschluss der Vereinsheimarbeiten</td>
+      <td>Anfang 2022 wurden die letzten Arbeiten abgeschlossen. Dazu gehörten die gründliche Reinigung des Innenbereichs und der Rückbau von Grabenmaterial, an dem sich Mitglieder aktiv beteiligten.</td>
+      <td>Bauprotokolle / Rückmeldung Götz</td>
+      <td>Götz</td>
+    </tr>
+    <tr>
+      <td>2024</td>
+      <td>Wahl des neuen Vorstandsteams</td>
+      <td>Im Jahr 2024 wurde ein neues Vorstandsteam gewählt: Valentin Ljubic, Patrick Weide und Marwin Kriese übernahmen die Verantwortung und setzten frische Akzente.</td>
+      <td>Vorstand / Protokoll</td>
+      <td>Valentin Ljubic, Patrick Weide, Marwin Kriese</td>
+    </tr>
+    <tr>
+      <td>2024</td>
+      <td>Umfassende Satzungsreform</td>
+      <td>Die neue Satzung brachte tiefgreifende Änderungen: Sie öffnete den Verein stärker in Richtung Leistungssport, führte digitale Beteiligungsformen ein, übertrug die Beitragshoheit an Vorstand und Sportrat, stärkte die Abteilungen und etablierte eine neue Datenschutzordnung.</td>
+      <td>Satzungsentwurf / BSB-Empfehlung</td>
+      <td>Valentin Ljubic</td>
+    </tr>
+    <tr>
+      <td>2024</td>
+      <td>Unterstützung Roggenbachhalle</td>
+      <td>Die TSG unterstützte die neue Roggenbachhalle in Schopfheim mit Trainingsgerätschaften im fünfstelligen Bereich. Das Projekt wurde durch den BSB und die Stadt Schopfheim gefördert und ermöglichte ein modernes Trainingsumfeld.</td>
+      <td>Vereinsberichte</td>
+      <td>Fritz Steuerer</td>
+    </tr>
+    <tr>
+      <td>2024</td>
+      <td>Neues Mitgliederverwaltungsprogramm</td>
+      <td>2024 führte der Verein ein neues Mitgliederverwaltungsprogramm ein. Anfangs bereitete es erhebliche Probleme, inzwischen läuft es stabil. Es verteilt die Aufgaben der Mitgliederverwaltung auf mehrere Schultern, ermöglicht schnelle Auswertungen und erstellt SEPA-Lastschriften mit digitaler Vorankündigung.</td>
+      <td>Vorstand / Verwaltung</td>
+      <td>Valentin Ljubic</td>
+    </tr>
+    <tr>
+      <td>2025</td>
+      <td>Digitalisierungsschub</td>
+      <td>2025 wurde die Vereinsführung grundlegend digitalisiert. Microsoft SharePoint und weitere Dienste bilden die Basis für Ablage, Verwaltung und Kommunikation. Personenunabhängige E-Mail-Adressen (info@tsgschopfheim.de, buchhaltung@tsgschopfheim.de, mitgliederverwaltung@tsgschopfheim.de), ein AI-Agent auf der Website und ein Kontaktformular sorgen für bessere Erreichbarkeit. Mitgliederzahl über 920 – Trend Richtung 1000.</td>
+      <td>Vorstandskommunikation</td>
+      <td>Valentin Ljubic</td>
+    </tr>
+    <tr>
+      <td>2025</td>
+      <td>Unterstützung Mädchenturnen</td>
+      <td>Die Turnerschaft im Bereich Mädchenturnen erhielt zusätzliche Trainingsgeräte und Ausstattung in der Vizemoos-Halle. Investition im niedrigen vierstelligen Bereich.</td>
+      <td>Vereinsberichte</td>
+      <td>Lenja Klausmann, Valentin Ljubic</td>
+    </tr>
+    <tr>
+      <td>2025</td>
+      <td>Unterstützung Max-Metzger-Schule</td>
+      <td>Die Max-Metzger-Grundschule Schopfheim erhielt neue Matten zur Absturzsicherung (mittlerer vierstelliger Betrag). Nach Förderung durch den BSB übernahm die Stadt Schopfheim mit Bürgermeister Harscher und Herrn Sänger die Hälfte der Kosten; Vermittlung durch Rektor Faller.</td>
+      <td>Vereinsberichte</td>
+      <td>Bürgermeister Harscher, Herr Sänger, Rektor Faller, Valentin Ljubic</td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+  function terms(str){
+    const v = (str||"").toLowerCase().trim();
+    return v ? v.split(/\s+/) : [];
+  }
+  function textOf(cell){
+    return (cell?.textContent||"").toLowerCase();
+  }
+  function applyFilters(){
+    const globalTerms = terms(document.getElementById("globalSearch").value);
+    const colInputs = Array.from(document.querySelectorAll(".colFilter"));
+    const colTerms = colInputs.map(inp => ({ col: Number(inp.dataset.col), terms: terms(inp.value) }));
+
+    const rows = document.querySelectorAll("#dataTable tbody tr");
+    rows.forEach(row => {
+      const cells = row.querySelectorAll("td");
+      const rowText = row.textContent.toLowerCase();
+
+      const globalMatch = globalTerms.every(t => rowText.includes(t));
+      const colsMatch = colTerms.every(ct => {
+        if (!ct.terms.length) return true;
+        const c = cells[ct.col];
+        const cellText = textOf(c);
+        return ct.terms.every(t => cellText.includes(t));
+      });
+
+      row.style.display = (globalMatch && colsMatch) ? "" : "none";
+    });
+  }
+  function clearAllFilters(){
+    document.getElementById("globalSearch").value = "";
+    document.querySelectorAll(".colFilter").forEach(i => i.value = "");
+    applyFilters();
+  }
+  applyFilters();
+</script>
+
+</body>
+</html>
