@@ -55,10 +55,26 @@
     table#dataTable tbody tr:nth-child(odd)  { background-color: #ffffff !important; }
     table#dataTable tbody tr:hover          { background-color: #e6f2ff !important; }
 
-    /* Mobile: fixe Breiten lockern, alles darf umbrechen */
+    /* Desktop bleibt mit festen Breiten */
+    table#dataTable {
+      border-collapse: collapse;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      table-layout: fixed;
+    }
+    
+    /* Mobile: Entsperren */
     @media (max-width: 768px) {
-      .filters input[type="text"]{ width:100%; }
-      table#dataTable th, table#dataTable td { width: auto !important; }
+      table#dataTable { 
+        table-layout: auto !important; 
+      }
+      table#dataTable th,
+      table#dataTable td {
+        width: auto !important; 
+        white-space: normal; 
+        word-break: break-word;
+      }
     }
   </style>
 </head>
