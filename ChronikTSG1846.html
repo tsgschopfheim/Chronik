@@ -8,35 +8,22 @@
     h2, h3 { font-family: Arial, sans-serif; }
 
     .filters {
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
       margin: 6px 0 12px 0; font-family: Arial, sans-serif;
     }
-    .filters input[type="text"]{ padding:5px; width:340px; }
-    .filters button{ padding:6px 10px; }
+    .filters input[type="text"] { padding: 5px; width: 340px; }
+    .filters button { padding: 6px 10px; }
 
     table#dataTable {
       border-collapse: collapse; width: 100%;
       font-family: Arial, sans-serif; font-size: 12px;
-      /*table-layout: fixed; /* macht Breitensteuerung zuverlässig */
+      table-layout: fixed;
     }
     table#dataTable th, table#dataTable td {
       border: 1px solid #ccc; padding: 8px; text-align: left;
-      white-space: normal;          /* Umbruch erlauben */
-      word-break: break-word;       /* lange Wörter umbrechen */
-      overflow-wrap: anywhere;      /* sehr lange Tokens/URLs umbrechen */
+      white-space: normal; word-break: break-word; overflow-wrap: anywhere;
+      box-sizing: border-box;
     }
-
-    /* Spaltenbreiten (Desktop) */
-    table#dataTable th:nth-child(1),
-    table#dataTable td:nth-child(1) { width: 70px; }      /* Jahr */
-    table#dataTable th:nth-child(2),
-    table#dataTable td:nth-child(2) { width: 180px; }     /* Ereignis */
-    table#dataTable th:nth-child(3),
-    table#dataTable td:nth-child(3) { width: auto; }      /* Beschreibung flexibel */
-    table#dataTable th:nth-child(4),
-    table#dataTable td:nth-child(4) { width: 140px; }     /* Quelle */
-    table#dataTable th:nth-child(5),
-    table#dataTable td:nth-child(5) { width: 220px; }     /* Namentliche Erwähnungen */
 
     table#dataTable thead tr:first-child th {
       background-color: #dbe5f0 !important;
@@ -55,32 +42,16 @@
     table#dataTable tbody tr:nth-child(odd)  { background-color: #ffffff !important; }
     table#dataTable tbody tr:hover          { background-color: #e6f2ff !important; }
 
-    /* Desktop bleibt mit festen Breiten */
-    table#dataTable {
-      border-collapse: collapse;
-      width: 100%;
-      font-family: Arial, sans-serif;
-      font-size: 12px;
-      table-layout: fixed;
-    }
-    
-    /* Mobile: Entsperren */
     @media (max-width: 768px) {
-      table#dataTable { 
-        table-layout: auto !important; 
-      }
-      table#dataTable th,
-      table#dataTable td {
-        width: auto !important; 
-        white-space: normal; 
-        word-break: break-word;
-      }
+      .filters input[type="text"] { width: 100%; }
+      table#dataTable { table-layout: auto !important; }
+      table#dataTable col { width: auto !important; }
+      table#dataTable thead tr:first-child th,
+      table#dataTable thead tr.filters-row th { position: static; }
     }
   </style>
 </head>
-
 <body>
-
 
 <h2>Vereinschronik</h2>
 
@@ -90,6 +61,13 @@
 </div>
 
 <table id="dataTable" border="1">
+  <colgroup>
+    <col style="width:100px">
+    <col style="width:220px">
+    <col style="width:auto">
+    <col style="width:220px">
+    <col style="width:240px">
+  </colgroup>
   <thead>
     <tr>
       <th>Jahr</th>
