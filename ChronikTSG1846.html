@@ -19,6 +19,10 @@
     }
     table#dataTable th, table#dataTable td {
       border: 1px solid #ccc; padding: 8px; text-align: left;
+      /* Option 1: automatischer Zeilenumbruch */
+      white-space: normal;             /* erlaubt Umbrüche */
+      word-break: break-word;          /* bricht lange Wörter */
+      overflow-wrap: anywhere;         /* bricht sehr lange Tokens/URLs */
     }
     table#dataTable thead tr:first-child th {
       background-color: #dbe5f0 !important;
@@ -37,12 +41,14 @@
     table#dataTable tbody tr:nth-child(odd)  { background-color: #ffffff !important; }
     table#dataTable tbody tr:hover          { background-color: #e6f2ff !important; }
 
+    /* Mobile: kein nowrap, Umbruch bleibt aktiv */
     @media (max-width: 768px) {
-      table#dataTable { display: block; overflow-x: auto; white-space: nowrap; }
+      table#dataTable { width: 100%; }
     }
   </style>
 </head>
 <body>
+
 
 <h2>Vereinschronik</h2>
 
