@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vereinschronik</title>
   <style>
+    html { -webkit-text-size-adjust: 100%; } /* verhindert Schriftgrößen-Boost auf iOS */
+
     h2, h3 { font-family: Arial, sans-serif; }
 
     .filters {
@@ -15,22 +17,27 @@
     .filters button { padding: 6px 10px; }
 
     .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    /* Summe der Spaltenbreiten + Paddings als Mindestbreite, damit Portrait nicht quetscht */
-    .table-wrap table { min-width: 980px; }
+    .table-wrap table { min-width: 980px; } /* Mindestbreite für Portrait */
 
     table#dataTable {
       border-collapse: collapse; width: 100%;
-      font-family: Arial, sans-serif; font-size: 12px;
+      font-family: Arial, sans-serif; font-size: 12px; line-height: 1.35;
       table-layout: fixed;
     }
     table#dataTable th, table#dataTable td {
       border: 1px solid #ccc; padding: 8px; text-align: left;
       white-space: normal; word-break: break-word; overflow-wrap: anywhere;
       box-sizing: border-box;
+      font-size: 12px; font-weight: 400; /* Standard: normal */
     }
 
-    /* Fixe Spalten über colgroup, nicht nth-child */
-    /* Kopf bleibt sticky nur auf breiten Screens */
+    table#dataTable th { font-weight: 700; } /* nur Kopf fett */
+
+    table#dataTable td * {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+    }
+
     table#dataTable thead tr:first-child th {
       background-color: #dbe5f0 !important;
       position: sticky; top: 0; z-index: 2;
@@ -48,7 +55,6 @@
     table#dataTable tbody tr:nth-child(odd)  { background-color: #ffffff !important; }
     table#dataTable tbody tr:hover          { background-color: #e6f2ff !important; }
 
-    /* Optional: auf sehr schmalen Screens Sticky aus, um Versatz zu vermeiden */
     @media (max-width: 768px){
       table#dataTable thead tr:first-child th,
       table#dataTable thead tr.filters-row th { position: static; }
