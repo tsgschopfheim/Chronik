@@ -14,6 +14,10 @@
     .filters input[type="text"] { padding: 5px; width: 340px; }
     .filters button { padding: 6px 10px; }
 
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    /* Summe der Spaltenbreiten + Paddings als Mindestbreite, damit Portrait nicht quetscht */
+    .table-wrap table { min-width: 980px; }
+
     table#dataTable {
       border-collapse: collapse; width: 100%;
       font-family: Arial, sans-serif; font-size: 12px;
@@ -25,6 +29,8 @@
       box-sizing: border-box;
     }
 
+    /* Fixe Spalten über colgroup, nicht nth-child */
+    /* Kopf bleibt sticky nur auf breiten Screens */
     table#dataTable thead tr:first-child th {
       background-color: #dbe5f0 !important;
       position: sticky; top: 0; z-index: 2;
@@ -42,12 +48,11 @@
     table#dataTable tbody tr:nth-child(odd)  { background-color: #ffffff !important; }
     table#dataTable tbody tr:hover          { background-color: #e6f2ff !important; }
 
-    @media (max-width: 900px) {
-      .filters input[type="text"] { width: 100%; }
-      table#dataTable { table-layout: auto !important; }
-      table#dataTable col { width: auto !important; }
+    /* Optional: auf sehr schmalen Screens Sticky aus, um Versatz zu vermeiden */
+    @media (max-width: 768px){
       table#dataTable thead tr:first-child th,
       table#dataTable thead tr.filters-row th { position: static; }
+      .filters input[type="text"] { width: 100%; }
     }
   </style>
 </head>
@@ -60,30 +65,31 @@
   <button type="button" onclick="clearAllFilters()">Filter zurücksetzen</button>
 </div>
 
-<table id="dataTable" border="1">
+<div class="table-wrap">
+  <table id="dataTable" border="1">
     <colgroup>
-      <col style="width:120px">
-      <col style="width:240px">
-      <col style="width:auto">
-      <col style="width:220px">
-      <col style="width:240px">
+      <col style="width:120px"><!-- Jahr -->
+      <col style="width:240px"><!-- Ereignis -->
+      <col style="width:auto"><!-- Beschreibung -->
+      <col style="width:200px"><!-- Quelle -->
+      <col style="width:220px"><!-- Namen -->
     </colgroup>
-  <thead>
-    <tr>
-      <th>Jahr</th>
-      <th>Ereignis</th>
-      <th>Beschreibung</th>
-      <th>Quelle</th>
-      <th>Namentliche Erwähnungen</th>
-    </tr>
-    <tr class="filters-row">
-      <th><input type="text" class="colFilter" data-col="0" placeholder="Filter Jahr" oninput="applyFilters()" /></th>
-      <th><input type="text" class="colFilter" data-col="1" placeholder="Filter Ereignis" oninput="applyFilters()" /></th>
-      <th><input type="text" class="colFilter" data-col="2" placeholder="Filter Beschreibung" oninput="applyFilters()" /></th>
-      <th><input type="text" class="colFilter" data-col="3" placeholder="Filter Quelle" oninput="applyFilters()" /></th>
-      <th><input type="text" class="colFilter" data-col="4" placeholder="Filter Namen" oninput="applyFilters()" /></th>
-    </tr>
-  </thead>
+    <thead>
+      <tr>
+        <th>Jahr</th>
+        <th>Ereignis</th>
+        <th>Beschreibung</th>
+        <th>Quelle</th>
+        <th>Namentliche Erwähnungen</th>
+      </tr>
+      <tr class="filters-row">
+        <th><input type="text" class="colFilter" data-col="0" placeholder="Filter Jahr" oninput="applyFilters()" /></th>
+        <th><input type="text" class="colFilter" data-col="1" placeholder="Filter Ereignis" oninput="applyFilters()" /></th>
+        <th><input type="text" class="colFilter" data-col="2" placeholder="Filter Beschreibung" oninput="applyFilters()" /></th>
+        <th><input type="text" class="colFilter" data-col="3" placeholder="Filter Quelle" oninput="applyFilters()" /></th>
+        <th><input type="text" class="colFilter" data-col="4" placeholder="Filter Namen" oninput="applyFilters()" /></th>
+      </tr>
+    </thead>
   <tbody>
         <tr>
       <td>Vor 1846</td>
