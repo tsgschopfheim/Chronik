@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vereinschronik</title>
   <style>
     h2, h3 { font-family: Arial, sans-serif; }
@@ -16,14 +17,27 @@
     table#dataTable {
       border-collapse: collapse; width: 100%;
       font-family: Arial, sans-serif; font-size: 12px;
+      table-layout: fixed; /* macht Breitensteuerung zuverlässig */
     }
     table#dataTable th, table#dataTable td {
       border: 1px solid #ccc; padding: 8px; text-align: left;
-      /* Option 1: automatischer Zeilenumbruch */
-      white-space: normal;             /* erlaubt Umbrüche */
-      word-break: break-word;          /* bricht lange Wörter */
-      overflow-wrap: anywhere;         /* bricht sehr lange Tokens/URLs */
+      white-space: normal;          /* Umbruch erlauben */
+      word-break: break-word;       /* lange Wörter umbrechen */
+      overflow-wrap: anywhere;      /* sehr lange Tokens/URLs umbrechen */
     }
+
+    /* Spaltenbreiten (Desktop) */
+    table#dataTable th:nth-child(1),
+    table#dataTable td:nth-child(1) { width: 70px; }      /* Jahr */
+    table#dataTable th:nth-child(2),
+    table#dataTable td:nth-child(2) { width: 180px; }     /* Ereignis */
+    table#dataTable th:nth-child(3),
+    table#dataTable td:nth-child(3) { width: auto; }      /* Beschreibung flexibel */
+    table#dataTable th:nth-child(4),
+    table#dataTable td:nth-child(4) { width: 140px; }     /* Quelle */
+    table#dataTable th:nth-child(5),
+    table#dataTable td:nth-child(5) { width: 220px; }     /* Namentliche Erwähnungen */
+
     table#dataTable thead tr:first-child th {
       background-color: #dbe5f0 !important;
       position: sticky; top: 0; z-index: 2;
@@ -41,12 +55,14 @@
     table#dataTable tbody tr:nth-child(odd)  { background-color: #ffffff !important; }
     table#dataTable tbody tr:hover          { background-color: #e6f2ff !important; }
 
-    /* Mobile: kein nowrap, Umbruch bleibt aktiv */
+    /* Mobile: fixe Breiten lockern, alles darf umbrechen */
     @media (max-width: 768px) {
-      table#dataTable { width: 100%; }
+      .filters input[type="text"]{ width:100%; }
+      table#dataTable th, table#dataTable td { width: auto !important; }
     }
   </style>
 </head>
+
 <body>
 
 
@@ -60,10 +76,10 @@
 <table id="dataTable" border="1">
   <thead>
     <tr>
-      <th style="min-width: 50px;">Jahr</th>
-      <th style="min-width: 100px;">Ereignis</th>
-      <th">Beschreibung</th>
-      <th style="min-width: 100px;">Quelle</th>
+      <th>Jahr</th>
+      <th>Ereignis</th>
+      <th>Beschreibung</th>
+      <th>Quelle</th>
       <th>Namentliche Erwähnungen</th>
     </tr>
     <tr class="filters-row">
